@@ -103,7 +103,13 @@
 
     ws.onopen = () => setToast("ok", "Подключено ✅");
     ws.onmessage = (ev) => {
-      const msg = JSON.parse(ev.data);
+  let msg;
+  try {
+    msg = JSON.parse(ev.data);
+  } catch (e) {
+    console.error("WS non-JSON:", ev.data);
+    return;
+  }
       if (msg.t === "state") {
         state.server = msg.state;
         render();
