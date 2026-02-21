@@ -1,57 +1,49 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-    <title>FreeGuessr (Yandex)</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>FreeGuessr (Yandex)</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Yandex Maps JS API 2.1 -->
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=__YMAPS_KEY__&lang=ru_RU"></script>
+  <!-- Yandex Maps JS API 2.1 -->
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=__YMAPS_KEY__&lang=ru_RU"></script>
 
-    <style>
-      /* приятный фон + зерно + анимация */
-      .bg-grid:before {
-        content:"";
-        position:fixed; inset:0;
-        background:
-          radial-gradient(circle at 10% 10%, rgba(99,102,241,.18), transparent 35%),
-          radial-gradient(circle at 90% 20%, rgba(16,185,129,.14), transparent 40%),
-          radial-gradient(circle at 40% 90%, rgba(236,72,153,.12), transparent 45%),
-          linear-gradient(180deg, #060612 0%, #05050a 100%);
-        z-index:-3;
-      }
-      .bg-grid:after{
-        content:"";
-        position:fixed; inset:0;
-        background-image:
-          linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-        background-size: 48px 48px;
-        opacity:.12;
-        z-index:-2;
-        mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 70%);
-      }
-      .grain{
-        position:fixed; inset:0;
-        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
-        opacity:.08;
-        z-index:-1;
-        pointer-events:none;
-        mix-blend-mode: overlay;
-      }
-      @keyframes pop { from{transform:translateY(6px);opacity:0} to{transform:translateY(0);opacity:1} }
-      .pop { animation: pop .25s ease-out; }
-      @keyframes pulseRing { 0%{box-shadow:0 0 0 0 rgba(99,102,241,.35)} 70%{box-shadow:0 0 0 14px rgba(99,102,241,0)} 100%{box-shadow:0 0 0 0 rgba(99,102,241,0)} }
-      .pulseRing { animation: pulseRing 1.6s infinite; }
-    </style>
-  </head>
+  <style>
+    .bg-grid:before{
+      content:""; position:fixed; inset:0; z-index:-3;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(99,102,241,.22), transparent 35%),
+        radial-gradient(circle at 88% 18%, rgba(16,185,129,.16), transparent 42%),
+        radial-gradient(circle at 40% 92%, rgba(236,72,153,.14), transparent 45%),
+        linear-gradient(180deg, #070714 0%, #04040b 100%);
+    }
+    .bg-grid:after{
+      content:""; position:fixed; inset:0; z-index:-2;
+      background-image:
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 48px 48px; opacity:.12;
+      mask-image: radial-gradient(circle at 50% 30%, black 18%, transparent 70%);
+    }
+    .grain{ position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      opacity:.08; mix-blend-mode: overlay;
+    }
+    @keyframes pop{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .pop{animation:pop .25s ease-out}
+    @keyframes glow{0%{opacity:.6}50%{opacity:1}100%{opacity:.6}}
+    .glow{animation:glow 2.4s ease-in-out infinite}
+    @keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(99,102,241,.35)}70%{box-shadow:0 0 0 14px rgba(99,102,241,0)}100%{box-shadow:0 0 0 0 rgba(99,102,241,0)}}
+    .pulseRing{animation:pulseRing 1.6s infinite}
+  </style>
+</head>
 
-  <body class="bg-grid text-zinc-100">
-    <div class="grain"></div>
-    <div id="app" class="min-h-screen"></div>
-    <script src="/static/app.js"></script>
-  </body>
+<body class="bg-grid text-zinc-100">
+  <div class="grain"></div>
+  <div id="app" class="min-h-screen"></div>
+  <script src="/static/app.js"></script>
+</body>
 </html>
