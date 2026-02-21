@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: freeguessr-yandex
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py
+    envVars:
+      - key: YANDEX_MAPS_API_KEY
+        sync: false
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: SIGNING_SECRET
+        sync: false
+      - key: ROUNDS_TOTAL
+        value: "5"
+      - key: ROUND_SECONDS
+        value: "90"
+      - key: REVEAL_SECONDS
+        value: "10"
